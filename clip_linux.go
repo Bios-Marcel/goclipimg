@@ -35,7 +35,7 @@ func GetImageFromClipboard() ([]byte, error) {
 
 	image := buffer.Bytes()
 	if len(image) == 0 {
-		return nil, ErrNoImageInClipboardError
+		return nil, ErrNoImageInClipboard
 	}
 
 	return image, nil
