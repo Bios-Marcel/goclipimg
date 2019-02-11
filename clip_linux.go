@@ -1,3 +1,5 @@
+// +build linux
+
 package goclipimg
 
 import (
@@ -31,9 +33,10 @@ func GetImageFromClipboard() ([]byte, error) {
 	buffer := bytes.NewBuffer(data)
 	io.Copy(buffer, output)
 
-	if len(data) == 0 {
+	image := buffer.Bytes()
+	if len(image) == 0 {
 		return nil, ErrNoImageInClipboardError
 	}
 
-	return buffer.Bytes(), nil
+	return image, nil
 }
