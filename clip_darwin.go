@@ -7,16 +7,16 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"path/filepath"
 )
 
 func GetImageFromClipboard() ([]byte, error) {
-	tempFile, tempFileError := ioutil.TempFile("", "clipimg.jpg")
+	tempFile, tempFileError := ioutil.TempFile("", "clipimg")
 	if tempFileError != nil {
 		return nil, tempFileError
 	}
 
-	imagePath := filepath.Join(os.TempDir(), tempFile.Name())
+	imagePath := tempFile.Name()
+	defer os.Remove(imagePath)
 
 	command := exec.Command("pngpaste", imagePath)
 
