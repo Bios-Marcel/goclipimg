@@ -15,12 +15,12 @@ func TestGetImageFromClipboard(t *testing.T) {
 	}
 
 	if len(testData) != 40230 {
-		t.Errorf("Incorrect test data, length should have been 40230, but was %d", len(testData))
+		t.Fatalf("Incorrect test data, length should have been 40230, but was %d", len(testData))
 	}
 
-	runError := fillClipboard()
-	if runError != nil {
-		t.Errorf("Error getting testdata into clipboard: %s", runError.Error())
+	fillError := fillClipboard()
+	if fillError != nil {
+		t.Fatalf("Error getting testdata into clipboard: %s", fillError.Error())
 	}
 
 	data, readError := goclipimg.GetImageFromClipboard()
