@@ -1,10 +1,11 @@
 image: archlinux
 packages:
   - go
+  - xclip
 tasks:
   - build: |
       export GOPATH=$PWD
       go get github.com/Bios-Marcel/goclipimg
       cd src/github.com/Bios-Marcel/goclipimg
       go vet ./...
-      go test :/...
+      go test ./...
