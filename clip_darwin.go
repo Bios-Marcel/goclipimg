@@ -10,7 +10,7 @@ import (
 )
 
 func GetImageFromClipboard() ([]byte, error) {
-	tempFile, tempFileError := ioutil.TempFile("", "clipimg.png")
+	tempFile, tempFileError := ioutil.TempFile("", "clipimg.jpg")
 	if tempFileError != nil {
 		return nil, tempFileError
 	}

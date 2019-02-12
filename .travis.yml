@@ -6,4 +6,3 @@ addons:
   homebrew:
     packages:
     - pngpaste
-    update: true
