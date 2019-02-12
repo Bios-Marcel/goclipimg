@@ -9,6 +9,9 @@ import (
 	"os/exec"
 )
 
+// ErrImagePasteUnsupported means that pngpaste can't be found or isn't installed.
+var ErrImagePasteUnsupported = errors.New("pngpaste can't be found on this system")
+
 func isCommandAvailable(name string) bool {
 	_, fileError := exec.LookPath(name)
 	return fileError == nil
