@@ -1,6 +1,7 @@
 package goclipimg
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -16,9 +17,38 @@ func GetImageFromClipboard() ([]byte, error) {
 	}
 
 	imagePath := filepath.Join(os.TempDir(), tempFile.Name())
-	pasteError := exec.Command("pngpaste", imagePath).Run()
-	if pasteError != nil {
-		return nil, errors.New(fmt.Sprintf("error pasting image into temporary file: %s", pasteError.Error()))
+
+	command := exec.Command("pngpaste", imagePath)
+
+	errorPipe, err := command.StderrPipe()
+	if err != nil {
+		return nil, err
+	}
+
+	outputPipe, err := command.StdoutPipe()
+	if err != nil {
+		return nil, err
+	}
+
+	commandError := command.Start()
+	if commandError != nil {
+		return nil, commandError
+	}
+
+	errScanner := bufio.NewScanner(errorPipe)
+	errOut := ""
+	for errScanner.Scan() {
+		errOut = errOut + errScanner.Text()
+	}
+
+	outScanner := bufio.NewScanner(outputPipe)
+	out := ""
+	for outScanner.Scan() {
+		out = out + outScanner.Text()
+	}
+
+	if errOut != "" || out != "" {
+		return nil, errors.New(fmt.Sprintf("%s | %s", errOut, out))
 	}
 
 	data, readError := ioutil.ReadFile(imagePath)
