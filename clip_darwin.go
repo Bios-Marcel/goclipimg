@@ -2,6 +2,7 @@ package goclipimg
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -15,9 +16,9 @@ func GetImageFromClipboard() ([]byte, error) {
 	}
 
 	imagePath := filepath.Join(os.TempDir(), tempFile.Name())
-	pasteError := exec.Command("pngpaste", imagePage).Run()
+	pasteError := exec.Command("pngpaste", imagePath).Run()
 	if pasteError != nil {
-		return errors.New("error pasting image into temporary file: %s", pasteError.Error())
+		return nil, errors.New(fmt.Sprintf("error pasting image into temporary file: %s", pasteError.Error()))
 	}
 
 	data, readError := ioutil.ReadFile(imagePath)
