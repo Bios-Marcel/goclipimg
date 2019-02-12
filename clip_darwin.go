@@ -9,7 +9,16 @@ import (
 	"os/exec"
 )
 
+func isCommandAvailable(name string) bool {
+	_, fileError := exec.LookPath(name)
+	return fileError == nil
+}
+
 func GetImageFromClipboard() ([]byte, error) {
+	if !isCommandAvailable("pngpaste") {
+		return nil, ErrImagePasteUnsupported
+	}
+
 	tempFile, tempFileError := ioutil.TempFile("", "clipimg")
 	if tempFileError != nil {
 		return nil, tempFileError
