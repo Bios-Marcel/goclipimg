@@ -14,9 +14,9 @@ func TestGetImageFromClipboard(t *testing.T) {
 		t.Fatalf("Error reading test data: %s", readError.Error())
 	}
 
-	/*if len(testData) != 40230 {
+	if len(testData) != 40230 {
 		t.Fatalf("Incorrect test data, length should have been 40230, but was %d", len(testData))
-	}*/
+	}
 
 	fillError := fillClipboard()
 	if fillError != nil {
