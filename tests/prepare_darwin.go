@@ -8,7 +8,7 @@ import (
 )
 
 const imageName = "image.png"
-const osaScript = "set the clipboard to (read (POSIX file '" + imageName + "') as PNG)"
+const osaScript = "set the clipboard to (read \"" + imageName + "\" as «class PNGf»)"
 
 func fillClipboard() error {
 	command := exec.Command("osascript", "-e", osaScript)
