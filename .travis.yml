@@ -2,7 +2,3 @@ os: osx
 language: go
 go:
   - "1.10"
-addons:
-  homebrew:
-    packages:
-    - pngpaste

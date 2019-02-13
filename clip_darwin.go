@@ -9,6 +9,8 @@ import (
 	"os/exec"
 )
 
+const imageToFile = "tell application \"System Events\" to write (the clipboard as «class PNGf») to \"%s\""
+
 // ErrImagePasteUnsupported means that pngpaste can't be found or isn't installed.
 var ErrImagePasteUnsupported = errors.New("pngpaste can't be found on this system")
 
@@ -18,10 +20,6 @@ func isCommandAvailable(name string) bool {
 }
 
 func getImageFromClipboard() ([]byte, error) {
-	if !isCommandAvailable("pngpaste") {
-		return nil, ErrImagePasteUnsupported
-	}
-
 	tempFile, tempFileError := ioutil.TempFile("", "clipimg")
 	if tempFileError != nil {
 		return nil, tempFileError
@@ -30,7 +28,7 @@ func getImageFromClipboard() ([]byte, error) {
 	imagePath := tempFile.Name()
 	defer os.Remove(imagePath)
 
-	command := exec.Command("pngpaste", imagePath)
+	command := exec.Command("osascript", "-e", fmt.Sprintf(imageToFile, imagePath))
 
 	errorPipe, err := command.StderrPipe()
 	if err != nil {
