@@ -14,16 +14,6 @@ This is just a tiny library that helps you getting an image from your clipboard 
 
 Currently only the xserver is supported, therefore `xserver` and `xclip` need to be installed.
 
-### Requirements - MacOS
-
-Currently the MacOS version relies on `pngpaste`.
-
-Install `pngpaste` via:
-
-```shell
-brew install pngpaste
-```
-
 ## Example
 
 ```go

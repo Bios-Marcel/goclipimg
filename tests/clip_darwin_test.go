@@ -17,7 +17,8 @@ func TestGetImageFromClipboard(t *testing.T) {
 		t.Fatalf("Error reading image from clipboard: %s", readError.Error())
 	}
 
-	if len(data) == 0 {
-		t.Fatal("Data is incorrect,^ length was 0")
+	// at least as big as a png header, not really a good test, but hey.
+	if len(data) <= 8 {
+		t.Fatal("Data is incorrect, length was 0")
 	}
 }
