@@ -17,7 +17,7 @@ func isCommandAvailable(name string) bool {
 	return fileError == nil
 }
 
-func GetImageFromClipboard() ([]byte, error) {
+func getImageFromClipboard() ([]byte, error) {
 	if !isCommandAvailable("xclip") {
 		return nil, ErrImagePasteUnsupported
 	}

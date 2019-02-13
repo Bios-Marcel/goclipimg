@@ -9,6 +9,6 @@ var ErrImagePasteUnsupported = errors.New("This system doesn't have a paste impl
 
 // GetImageFromClipboard always returns ErrImagePasteUnsupported, since the
 // compilation target currently doesn't support pasting images.
-func GetImageFromClipboard() ([]byte, error) {
+func getImageFromClipboard() ([]byte, error) {
 	return nil, ErrImagePasteUnsupported
 }
