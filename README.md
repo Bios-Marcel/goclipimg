@@ -1,5 +1,11 @@
 # goclipimg
 
+| OS | Build |
+| - | - |
+| linux | [![builds.sr.ht status](https://builds.sr.ht/~biosmarcel/goclipimg/arch.yml.svg)](https://builds.sr.ht/~biosmarcel/goclipimg/arch.yml?) |
+| darwin | [![Build Status](https://travis-ci.org/Bios-Marcel/goclipimg.svg?branch=master)](https://travis-ci.org/Bios-Marcel/goclipimg) |
+| windows | **TODO** |
+
 This is just a tiny library that helps you getting an image from your clipboard into your application.
 
 ## Requirements
@@ -17,13 +23,6 @@ Install `pngpaste` via:
 ```shell
 brew install pngpaste
 ```
-
-## CI
-
-**CI can not be run on a headless linux server, as the clipboard is part of
-the XServer, which isn't running on a headless vm**
-
-I'll try adding CI for MacOS and Windows, in case it is possible.
 
 ## Example
 
