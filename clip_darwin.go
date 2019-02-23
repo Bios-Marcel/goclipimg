@@ -1,7 +1,6 @@
 package goclipimg
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -9,9 +8,6 @@ import (
 )
 
 const imageToFile = "tell application \"System Events\" to write (the clipboard as «class PNGf») to \"%s\""
-
-// ErrImagePasteUnsupported means that pngpaste can't be found or isn't installed.
-var ErrImagePasteUnsupported = errors.New("pngpaste can't be found on this system")
 
 func getImageFromClipboard() ([]byte, error) {
 	tempFile, tempFileError := ioutil.TempFile("", "clipimg")
