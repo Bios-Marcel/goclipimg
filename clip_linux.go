@@ -53,7 +53,7 @@ func getImageFromClipboard() ([]byte, error) {
 	}
 
 	if clipError != nil {
-		return nil, clipError
+		return nil, ErrNoImageInClipboard
 	}
 
 	image := buffer.Bytes()

@@ -9,6 +9,11 @@ import (
 )
 
 func TestGetImageFromClipboard(t *testing.T) {
+	data, readError := goclipimg.GetImageFromClipboard()
+	if readError != goclipimg.ErrNoImageInClipboard {
+		t.Fatalf("no data was put into clipboard, error was %s; data was %x", readError, data)
+	}
+
 	testData, readError := ioutil.ReadFile(imageName)
 	if readError != nil {
 		t.Fatalf("Error reading test data: %s", readError.Error())
@@ -23,7 +28,7 @@ func TestGetImageFromClipboard(t *testing.T) {
 		t.Fatalf("Error getting testdata into clipboard: %s", fillError.Error())
 	}
 
-	data, readError := goclipimg.GetImageFromClipboard()
+	data, readError = goclipimg.GetImageFromClipboard()
 	if readError != nil {
 		t.Fatalf("Error reading image from clipboard: %s", readError.Error())
 	}
