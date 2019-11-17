@@ -12,7 +12,9 @@ This is just a tiny library that helps you getting an image from your clipboard 
 
 ### Requirements - Linux
 
-Currently only the xserver is supported, therefore `xserver` and `xclip` need to be installed.
+If you are running x11 you'll need to have `xclip` installed.
+
+On Wayland you need `wl-clipboard`.
 
 ## Example
 

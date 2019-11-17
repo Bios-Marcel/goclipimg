@@ -13,16 +13,7 @@ var (
 		0x89,
 		/* In ASCII, the letters PNG, allowing a person to identify the
 		   format easily if it is viewed in a text editor. */
-		0x50, 0x4E, 0x47,
-		/* A DOS-style line ending (CRLF) to detect DOS-Unix line ending
-		   conversion of the data.  */
-		0x0D, 0x0A,
-		/* A byte that stops display of the file under DOS when the command
-		   type has been used—the end-of-file character.  */
-		0x1A,
-		/* A Unix-style line ending (LF) to detect Unix-DOS line ending
-		   conversion.  */
-		0x0A}
+		0x50, 0x4E, 0x47}
 	// ErrNoImageInClipboard means that no data was returned.
 	ErrNoImageInClipboard = errors.New("the clipboard doesn't contain an image")
 )
@@ -39,7 +30,7 @@ func GetImageFromClipboard() ([]byte, error) {
 		return nil, ErrNoImageInClipboard
 	}
 
-	if bytes.Compare(data[:8], pngHeader[:]) != 0 {
+	if bytes.Compare(data[:4], pngHeader[:]) != 0 {
 		return nil, ErrNoImageInClipboard
 	}
 
