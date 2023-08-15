@@ -1,4 +1,4 @@
-// +build linux
+//go:build !darwin && !windows
 
 package goclipimg
 
@@ -14,8 +14,8 @@ import (
 var ErrImagePasteUnsupported = errors.New("xclip/wl-clipboard is not available on this system")
 
 func isCommandAvailable(name string) bool {
-	_, fileError := exec.LookPath(name)
-	return fileError == nil
+	_, err := exec.LookPath(name)
+	return err == nil
 }
 
 func getImageFromWayland(buffer *bytes.Buffer) error {
@@ -44,15 +44,15 @@ func getImageFromClipboard() ([]byte, error) {
 	//500KB
 	buffer.Grow(500000)
 	sessionType := os.Getenv("XDG_SESSION_TYPE")
-	var clipError error
+	var err error
 	if sessionType == "wayland" {
-		clipError = getImageFromWayland(&buffer)
+		err = getImageFromWayland(&buffer)
 	} else {
 		//For everything not wayland, we default to x11
-		clipError = getImageFromXclip(&buffer)
+		err = getImageFromXclip(&buffer)
 	}
 
-	if clipError != nil {
+	if err != nil {
 		return nil, ErrNoImageInClipboard
 	}
 

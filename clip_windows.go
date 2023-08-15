@@ -1,16 +1,15 @@
-// +build windows
+//go:build windows
 
 package goclipimg
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 )
 
 func getImageFromClipboard() ([]byte, error) {
-	tempFile, tempFileError := ioutil.TempFile("", "clipimg")
+	tempFile, tempFileError := os.CreateTemp("", "clipimg")
 	if tempFileError != nil {
 		return nil, tempFileError
 	}
@@ -30,14 +29,13 @@ func getImageFromClipboard() ([]byte, error) {
 		$encoder.Save($stream)
 		$stream.Dispose()
 	}`, imagePath)).Run()
-
 	if err != nil {
 		return nil, ErrNoImageInClipboard
 	}
 
-	data, readError := ioutil.ReadFile(imagePath)
-	if readError != nil {
-		return nil, readError
+	data, err := os.ReadFile(imagePath)
+	if err != nil {
+		return nil, err
 	}
 
 	if len(data) == 0 {
