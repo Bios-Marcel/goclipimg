@@ -1,8 +1,6 @@
 # goclipimg
 
-<a href="https://github.com/Bios-Marcel/goclipimg/actions/workflows/test.yml">
-  <img src="https://github.com/Bios-Marcel/goclipimg/workflows/test/badge.svg">
-</a>
+![tests](https://github.com/github/docs/actions/workflows/test.yml/badge.svg)
 
 This is just a tiny library that helps you getting an image from your
 clipboard into your application.
